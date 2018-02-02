@@ -25,7 +25,17 @@ jobs:
             options:
               imageName: "stefanscherer/node-windows"
               imageTag: "9.4.0-nanoserver-2016"
+              env:
+                - SHIPPABLE_REPO_DIR: "%NODEREPO_STATE%"
+                - CODE_COVERAGE_DIR: %SHIPPABLE_REPO_DIR%\shippable\codecoverage
+                - TESTS_LOC_DIR: %SHIPPABLE_REPO_DIR%\tests
+                - MOD_LOC: %SHIPPABLE_REPO_DIR%\node_modules\.bin\
           script:
             - pushd %NODEREPO_STATE%
             - shippable_retry npm install
+            - mkdir -p %TEST_RESULTS_DIR% && mkdir -p %CODE_COVERAGE_DIR%
+            - pushd %TESTS_LOC_DIR%
+            - %MOD_LOC%\mocha --recursive "%TESTS_LOC_DIR%\**\*.spec.js" -R mocha-junit-reporter --reporter-options mochaFile=%TEST_RESULTS_DIR%\testresults.xml
+            - %MOD_LOC%\istanbul --include-all-sources cover -root "%SHIPPABLE_REPO_DIR%\routes" %SHIPPABLE_REPO_DIR%\node_modules\mocha\bin\_mocha -- -R spec-xunit-file --recursive "%TESTS_LOC_DIR%\**\*.spec.js"
+            - %MOD_LOC%\istanbul report cobertura --dir %CODE_COVERAGE_DIR%
             - popd
