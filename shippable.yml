@@ -21,10 +21,5 @@ jobs:
       - IN: nodeRepo
       - TASK:
           name: build_node
-          runtime:
-            options:
-              imageName: "stefanscherer/node-windows"
-              imageTag: "9.4.0-nanoserver-2016"
           script:
-            - shippable_retry npm install
-            
+            - echo "hello world"
