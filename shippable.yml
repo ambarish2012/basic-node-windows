@@ -27,9 +27,9 @@ jobs:
               imageTag: "9.4.0-nanoserver-2016"
               env:
                 - SHIPPABLE_REPO_DIR: "%NODEREPO_STATE%"
-                - CODE_COVERAGE_DIR: "%SHIPPABLE_REPO_DIR%\shippable\codecoverage"
-                - TESTS_LOC_DIR: "%SHIPPABLE_REPO_DIR%\tests"
-                - MOD_LOC: "%SHIPPABLE_REPO_DIR%\node_modules\.bin\"
+                - CODE_COVERAGE_DIR: "%SHIPPABLE_REPO_DIR%/shippable/codecoverage"
+                - TESTS_LOC_DIR: "%SHIPPABLE_REPO_DIR%/tests"
+                - MOD_LOC: "%SHIPPABLE_REPO_DIR%/node_modules/.bin/"
           script:
             - pushd %NODEREPO_STATE%
             - shippable_retry npm install
