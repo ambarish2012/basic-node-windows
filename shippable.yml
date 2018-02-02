@@ -18,7 +18,12 @@ jobs:
       nodePool: custom__x86_64__WindowsServer_2016
       container: true
     steps:
+      - IN: nodeRepo
       - TASK:
           name: build_node
+          runtime:
+            options:
+              imageName: "stefanscherer/node-windows"
+              imageTag: "9.4.0-nanoserver-2016"
           script:
-            - echo "hello world"
+            - echo "hello"
