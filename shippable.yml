@@ -12,18 +12,17 @@ resources:
 
 jobs:
 
-  - name: build_node
+  - name: container_single_task
     type: runSh
     runtime:
       nodePool: custom__x86_64__WindowsServer_2016
       container: true
     steps:
-      - IN: nodeRepo
       - TASK:
-          name: build_node
+          name: says-hello-world
           runtime:
             options:
-              imageName: "stefanscherer/node-windows"
-              imageTag: "9.4.0-nanoserver-2016"
+              imageName: "microsoft/windowsservercore"
+              imageTag: "10.0.14393.1884"
           script:
-            - echo "hello"
+            - echo "Hello world"
